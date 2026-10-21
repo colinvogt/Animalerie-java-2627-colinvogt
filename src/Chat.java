@@ -4,10 +4,12 @@ public class Chat extends Animal {
         super(nom, age, sante);
     }
 
+    @Override
     public String bruit() {
         return "Miaou";
     }
 
+    @Override
     public String soinQuotidien() {
         return "dormir";
     }

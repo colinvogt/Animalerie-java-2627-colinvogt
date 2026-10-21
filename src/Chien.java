@@ -4,10 +4,12 @@ public class Chien extends Animal {
         super(nom, age, sante);
     }
 
+    @Override
     public String bruit() {
         return "Wouaf!";
     }
 
+    @Override
     public String soinQuotidien() {
         return "brosser";
     }

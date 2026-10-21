@@ -13,4 +13,9 @@ public abstract class Animal {
         return nom;
     }
 
+    public abstract String bruit();
+
+    public abstract String soinQuotidien();
+
+
 }
