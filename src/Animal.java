@@ -17,5 +17,11 @@ public abstract class Animal {
 
     public abstract String soinQuotidien();
 
+    public EtatSante getSante() {
+        return sante;
+    }
 
+    public void setSante(EtatSante sante) {
+        this.sante = sante;
+    }
 }
