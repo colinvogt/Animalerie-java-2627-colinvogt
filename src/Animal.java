@@ -13,15 +13,32 @@ public abstract class Animal {
         return nom;
     }
 
-    public abstract String bruit();
-
-    public abstract String soinQuotidien();
-
     public EtatSante getSante() {
         return sante;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public abstract String bruit();
+
+    public abstract String soinQuotidien();
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public void setSante(EtatSante sante) {
         this.sante = sante;
+    }
+
+    @Override
+    public String toString() {
+        return nom + ", " + age + " ans, " + sante;
     }
 }
