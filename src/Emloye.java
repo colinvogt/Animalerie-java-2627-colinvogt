@@ -10,4 +10,6 @@ public abstract class Emloye {
         this.salaire = salaire;
         this.role = role;
     }
+
+    public abstract String effectuerTache(Animal animal);
 }
