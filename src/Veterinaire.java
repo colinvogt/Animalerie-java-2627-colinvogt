@@ -6,7 +6,10 @@ public class Veterinaire extends Emloye {
 
     @Override
     public String effectuerTache(Animal animal) {
-        return "soigne un animal malade et améliore son état de santé.";
+        if (animal.getSante() == EtatSante.SAIN) {
+            return "L'animal est déjà en bonne santé";
+        }
+        animal.setSante(animal.getSante().ameliorer());
+        return  "l'animal c'est fait soigné il est maintenant " + animal.getSante();
     }
-
 }
