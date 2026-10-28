@@ -14,7 +14,8 @@ public class Main {
             io.afficher("Que voulez vous faire ?\n\n" +
                     "1. Ajouter un animal.\n" +
                     "2. Supprimer un animal.\n" +
-                    "3. Lister les animaux.\n");
+                    "3. Lister les animaux.\n" +
+                    "4. Quitter.\n");
 
             String actionChoisi;
             actionChoisi = io.lireLigne();
@@ -24,7 +25,15 @@ public class Main {
                 case 1:
                     ajouterAnimal(animals, io);
                     break;
-
+                case 2:
+                    supprimerAnimal(animals, io);
+                    break;
+                case 3: listerAnimaux(animals, io);
+                break;
+                case 4: estRepete = false;
+                io.afficher("Au revoir !");
+                break;
+                default: io.afficher("Choix invalide, entre 1, 2, 3 ou 4.");
             }
 
 
