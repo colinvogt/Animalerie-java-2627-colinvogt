@@ -86,4 +86,16 @@ public class Main {
         animals.add(animal);
         io.afficher(nom + " a été ajouté.");
     }
+
+
+
+    private static void listerAnimaux(ArrayList<Animal> animals, ConsoleIO io) {
+        if (animals.isEmpty()) {
+            io.afficher("Il n'y a aucun animal à supprimer.");
+            return;
+        }
+        for (int i = 0; i < animals.size(); i++) {
+            io.afficher((i + 1) + ". " + animals.get(i));
+        }
+    }
 }
