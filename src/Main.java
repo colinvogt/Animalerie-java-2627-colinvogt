@@ -87,7 +87,27 @@ public class Main {
         io.afficher(nom + " a été ajouté.");
     }
 
+    private static void supprimerAnimal(ArrayList<Animal> animals, ConsoleIO io) {
+        if (animals.isEmpty()) {
+            io.afficher("Il n'y a aucun animal à supprimer.");
+            return;
+        }
 
+        listerAnimaux(animals, io);
+        io.afficher("Numéro de l'animal à supprimer :");
+
+        int numero = 0;
+        do {
+            numero = Integer.parseInt(io.lireLigne().trim());
+            if (numero < 1 || numero > animals.size()) {
+
+                io.afficher("Numero Invalide");
+            }
+        } while ((numero < 1 || numero > animals.size()));
+
+        Animal supprime = animals.remove(numero - 1);
+        io.afficher(supprime.getNom() + " a été supprimé.");
+    }
 
     private static void listerAnimaux(ArrayList<Animal> animals, ConsoleIO io) {
         if (animals.isEmpty()) {
