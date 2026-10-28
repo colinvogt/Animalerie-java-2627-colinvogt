@@ -1,8 +1,6 @@
 import java.util.ArrayList; // Import the ArrayList class
-import java.util.Arrays;
 
 public class Main {
-    static final String regex = "[,\\.\\s]";
 
     public static void main(String[] args) {
 
@@ -47,7 +45,7 @@ public class Main {
         int age = 0;
         int indexSante = 0;
         Animal animal = null;
-        boolean typeConnu = true;
+        boolean typeConnu = false;
         do {
         do {
             do {
@@ -88,7 +86,7 @@ public class Main {
                 break;
             default:
                 io.afficher("Type inconnu : " + type);
-                typeConnu = false;
+                typeConnu = true;
                 break;
         }
     } while (typeConnu);
@@ -120,7 +118,7 @@ public class Main {
 
     private static void listerAnimaux(ArrayList<Animal> animals, ConsoleIO io) {
         if (animals.isEmpty()) {
-            io.afficher("Il n'y a aucun animal à supprimer.");
+            io.afficher("Il n'y a aucun animal à lister.");
             return;
         }
         for (int i = 0; i < animals.size(); i++) {
