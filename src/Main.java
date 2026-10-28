@@ -22,12 +22,8 @@ public class Main {
 
             switch (parts) {
                 case 1:
-                    io.afficher("Type(Chien Chat, Lapin), Nom, Age, Santé(0-2 / 0 = Sain, 2 = Soin intensif)");
-                    String donneeAnimal;
-                    donneeAnimal = io.lireLigne();
-                    String[] donnees = donneeAnimal.trim().split(regex);
-
-                    animals = new
+                    ajouterAnimal(animals, io);
+                    break;
 
             }
 
@@ -41,6 +37,9 @@ public class Main {
         String nom;
         int age = 0;
         int indexSante = 0;
+        Animal animal = null;
+        boolean typeConnu = true;
+        do {
         do {
             do {
                 donnees = null;
@@ -67,7 +66,7 @@ public class Main {
         } while (indexSante < 0 || indexSante >= EtatSante.values().length);
         EtatSante sante = EtatSante.values()[indexSante];
 
-        Animal animal;
+
         switch (type) {
             case "chien":
                 animal = new Chien(nom, age, sante);
@@ -75,9 +74,16 @@ public class Main {
             case "chat":
                 animal = new Chat(nom, age, sante);
                 break;
-
+            case "lapin":
+                animal = new Lapin(nom, age, sante);
+                break;
+            default:
+                io.afficher("Type inconnu : " + type);
+                typeConnu = false;
+                break;
         }
+    } while (typeConnu);
+        animals.add(animal);
+        io.afficher(nom + " a été ajouté.");
     }
-
-
 }
