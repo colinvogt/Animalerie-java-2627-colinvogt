@@ -45,7 +45,7 @@ public class Main {
         int age = 0;
         int indexSante = 0;
         Animal animal = null;
-        boolean typeConnu = false;
+        boolean typeInconnu = false;
         do {
         do {
             do {
@@ -86,10 +86,10 @@ public class Main {
                 break;
             default:
                 io.afficher("Type inconnu : " + type);
-                typeConnu = true;
+                typeInconnu = true;
                 break;
         }
-    } while (typeConnu);
+    } while (typeInconnu);
         animals.add(animal);
         io.afficher(nom + " a été ajouté.");
     }
