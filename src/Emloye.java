@@ -4,12 +4,16 @@ public abstract class Emloye {
     private double salaire;
     private String role;
 
-    public Emloye(String nom, String prenom, double salaire, String role) {
+    public Emloye(String nom, String prenom, double salaire) {
         this.nom = nom;
         this.prenom = prenom;
         this.salaire = salaire;
-        this.role = role;
+        this.role = getRole();
     }
 
+    public abstract String getRole();
+
     public abstract String effectuerTache(Animal animal);
+
+
 }

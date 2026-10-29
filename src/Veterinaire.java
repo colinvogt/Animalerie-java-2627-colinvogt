@@ -1,7 +1,7 @@
 public class Veterinaire extends Emloye {
 
-    public Veterinaire(String nom, String prenom, double salaire, String role) {
-        super(nom, prenom, salaire, role);
+    public Veterinaire(String nom, String prenom, double salaire) {
+        super(nom, prenom, salaire);
     }
 
     @Override
@@ -11,5 +11,10 @@ public class Veterinaire extends Emloye {
         }
         animal.setSante(animal.getSante().ameliorer());
         return  "l'animal c'est fait soigné il est maintenant " + animal.getSante();
+    }
+
+    @Override
+    public String getRole() {
+        return "Veterinaire";
     }
 }
