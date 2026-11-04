@@ -5,29 +5,60 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Animal> animals = new ArrayList<>();
         ArrayList<Emloye> employes = new ArrayList<>();
-        Soigneur Employe1 = new Soigneur("Albert", "Dupont", 3500);
-        Soigneur Employe2 = new Soigneur("Laure", "Dinateur", 4000);
-        Soigneur Employe3 = new Soigneur("Jean", "naimar", 3500);
-        Veterinaire Employe4 = new Veterinaire("Albert", "Cavu", 5000);
-        Soigneur Employe5 = new Soigneur("Brigitte", "c++", 4500);
-        Veterinaire Employe6 = new Veterinaire("Chu", "Ki", 3500);
         ConsoleIO io = new ConsoleIO();
 
-        employes.add(Employe1);
-        employes.add(Employe2);
-        employes.add(Employe3);
-        employes.add(Employe4);
-        employes.add(Employe5);
-        employes.add(Employe6);
+        // Employes de depart pour tester les soins.
+        employes.add(new Soigneur("Dupont", "Alice", 3500));
+        employes.add(new Soigneur("Martin", "Lucas", 3800));
+        employes.add(new Soigneur("Bernard", "Emma", 4000));
 
-        listerEmployer(employes, io);
+        employes.add(new Veterinaire("Durand", "Hugo", 5000));
+        employes.add(new Veterinaire("Petit", "Lea", 5500));
+        employes.add(new Veterinaire("Robert", "Nathan", 5200));
+        
+        // Animaux de depart pour tester les soins.
+        animals.add(new Chien("Rex", 5, EtatSante.SAIN));
+        animals.add(new Chien("Nala", 3, EtatSante.SOIN_LEGER));
+        animals.add(new Chien("Max", 8, EtatSante.SOIN_INTENSIF));
 
-        /*boolean estRepete = true;
+        animals.add(new Chat("DestructeurDePlanete", 2, EtatSante.SAIN));
+        animals.add(new Chat("DestructeurDeGalaxy", 6, EtatSante.SOIN_LEGER));
+        animals.add(new Chat("Mouchoir", 4, EtatSante.SOIN_INTENSIF));
+
+        animals.add(new Lapin("Noisette", 1, EtatSante.SAIN));
+        animals.add(new Lapin("Pompon", 3, EtatSante.SOIN_LEGER));
+        animals.add(new Lapin("Caramel", 2, EtatSante.SOIN_INTENSIF));
+
+
+
+        String actionChoisi;
+        boolean continuer = true;
         do {
-            if (gestionAnimal(animals, io)) {
-                estRepete = false;
+            io.afficher("1. S'occuper d'un animal\n" +
+                    "2. Ajouter/lister/supprimer un animal\n" +
+                    "4. Ajouter/lister/supprimer un employer\n" +
+                    "3. Quitter");
+            actionChoisi = io.lireLigne();
+            int parts = Integer.parseInt(actionChoisi.trim());
+            switch (parts) {
+                case 1:
+                    actionEmployer(animals, employes, io);
+                    break;
+                case 2:
+                    boolean estRepete = true;
+                    do {
+                        if (gestionAnimal(animals, io)) {
+                            estRepete = false;
+                        }
+                    } while (estRepete);
+                    break;
+                case 3: ge
+                case 4:
+                    io.afficher("Au revoir!");
+                    continuer = false;
             }
-        } while (estRepete);*/
+        } while (continuer);
+
     }
 
     private static void ajouterAnimal(ArrayList<Animal> animals, ConsoleIO io) {
@@ -39,49 +70,49 @@ public class Main {
         Animal animal = null;
         boolean typeInconnu = false;
         do {
-        do {
             do {
-                donnees = null;
-                io.afficher("Type, Nom, Age, Santé\n" +
-                        "Type : chien ou chat\n" +
-                        "Santé : 0 = Sain, 1 = Soin léger, 2 = Soin intensif\n" +
-                        "Exemple : chien, Rex, 5, 1");
+                do {
+                    donnees = null;
+                    io.afficher("Type, Nom, Age, Santé\n\n" +
+                            "Type : chien ou chat\n" +
+                            "Santé : 0 = Sain, 1 = Soin léger, 2 = Soin intensif\n" +
+                            "Exemple : chien, Rex, 5, 1");
 
-                donnees = io.lireLigne().trim().split("\\s*,\\s*");
+                    donnees = io.lireLigne().trim().split("\\s*,\\s*");
 
-                if (donnees.length != 4) {
-                    io.afficher("Il faut 4 valeurs séparées par des virgules.");
+                    if (donnees.length != 4) {
+                        io.afficher("Il faut 4 valeurs séparées par des virgules.");
+                    }
+                } while (donnees.length != 4);
+
+                type = donnees[0].toLowerCase();
+                nom = donnees[1];
+                age = Integer.parseInt(donnees[2]);
+                indexSante = Integer.parseInt(donnees[3]);
+
+                if (indexSante < 0 || indexSante >= EtatSante.values().length) {
+                    io.afficher("La santé doit être entre 0 et 2.");
                 }
-            } while (donnees.length != 4);
+            } while (indexSante < 0 || indexSante >= EtatSante.values().length);
+            EtatSante sante = EtatSante.values()[indexSante];
 
-            type = donnees[0].toLowerCase();
-            nom = donnees[1];
-            age = Integer.parseInt(donnees[2]);
-            indexSante = Integer.parseInt(donnees[3]);
 
-            if (indexSante < 0 || indexSante >= EtatSante.values().length) {
-                io.afficher("La santé doit être entre 0 et 2.");
+            switch (type) {
+                case "chien":
+                    animal = new Chien(nom, age, sante);
+                    break;
+                case "chat":
+                    animal = new Chat(nom, age, sante);
+                    break;
+                case "lapin":
+                    animal = new Lapin(nom, age, sante);
+                    break;
+                default:
+                    io.afficher("Type inconnu : " + type);
+                    typeInconnu = true;
+                    break;
             }
-        } while (indexSante < 0 || indexSante >= EtatSante.values().length);
-        EtatSante sante = EtatSante.values()[indexSante];
-
-
-        switch (type) {
-            case "chien":
-                animal = new Chien(nom, age, sante);
-                break;
-            case "chat":
-                animal = new Chat(nom, age, sante);
-                break;
-            case "lapin":
-                animal = new Lapin(nom, age, sante);
-                break;
-            default:
-                io.afficher("Type inconnu : " + type);
-                typeInconnu = true;
-                break;
-        }
-    } while (typeInconnu);
+        } while (typeInconnu);
         animals.add(animal);
         io.afficher(nom + " a été ajouté.");
     }
@@ -118,71 +149,147 @@ public class Main {
         }
     }
 
-   private static boolean gestionAnimal(ArrayList<Animal> animals, ConsoleIO io) {
-       io.afficher("Que voulez vous faire ?\n\n" +
-               "1. Ajouter un animal.\n" +
-               "2. Supprimer un animal.\n" +
-               "3. Lister les animaux.\n" +
-               "4. Quitter.\n");
+    private static boolean gestionAnimal(ArrayList<Animal> animals, ConsoleIO io) {
+        io.afficher("Que voulez vous faire ?\n\n" +
+                "1. Ajouter un animal.\n" +
+                "2. Supprimer un animal.\n" +
+                "3. Lister les animaux.\n" +
+                "4. Retour.\n");
 
-       String actionChoisi;
-       actionChoisi = io.lireLigne();
-       int parts = Integer.parseInt(actionChoisi.trim());
+        String actionChoisi;
+        actionChoisi = io.lireLigne();
+        int parts = Integer.parseInt(actionChoisi.trim());
 
-       switch (parts) {
-           case 1:
-               ajouterAnimal(animals, io);
-               break;
-           case 2:
-               supprimerAnimal(animals, io);
-               break;
-           case 3:
-               listerAnimaux(animals, io);
-               break;
-           case 4:
-               io.afficher("Au revoir !");
-               return true;
-           default:
-               io.afficher("Choix invalide, entre 1, 2, 3 ou 4.");
-               return false;
-       }
-       return true;
-   }
+        switch (parts) {
+            case 1:
+                ajouterAnimal(animals, io);
+                break;
+            case 2:
+                supprimerAnimal(animals, io);
+                break;
+            case 3:
+                listerAnimaux(animals, io);
+                break;
+            case 4:
+                return true;
+            default:
+                io.afficher("Choix invalide, entre 1, 2, 3 ou 4.");
+                return false;
+        }
+        return false;
+    }
 
-   private static boolean gesionEmployer(ArrayList<Animal> animals, ArrayList<Emloye> employes, ConsoleIO io) {
-       io.afficher("Quel employer utiliserer vous ?\n\n");
-       listerEmployer(employes, io);
-       String employeChoisi;
-       employeChoisi = io.lireLigne();
-       int parts = Integer.parseInt(employeChoisi.trim());
-       employes.get(parts);
+    private static void actionEmployer(ArrayList<Animal> animals, ArrayList<Emloye> employes, ConsoleIO io) {
+        io.afficher("Quel employer utiliserer vous ?\n\n");
+        listerEmployer(employes, io);
+        String employeChoisi;
+        employeChoisi = io.lireLigne();
+        int parts = Integer.parseInt(employeChoisi.trim());
+        Emloye employeSelectionne = employes.get(parts - 1);
 
-/*
-       switch (parts) {
-           case 1:
-               ajouterAnimal(animals, io);
-               break;
-           case 2:
-               supprimerAnimal(animals, io);
-               break;
-           case 3:
-               listerAnimaux(animals, io);
-               break;
-           case 4:
-               io.afficher("Au revoir !");
-               return true;
-           default:
-               io.afficher("Choix invalide, entre 1, 2, 3 ou 4.");
-               return false;
-       }*/
-       return true;
-   }
+        io.afficher("De quelle animal voulez-vous vous occuper ?\n");
+        listerAnimaux(animals, io);
+        String animalChoisi;
+        animalChoisi = io.lireLigne();
+        int indice = Integer.parseInt(animalChoisi.trim());
+        Animal animalSelectionne = animals.get(indice - 1);
+
+        io.afficher(employeSelectionne.effectuerTache(animalSelectionne));
+    }
+
+    private static boolean gestionEmployer(ArrayList<Emloye> employes, ConsoleIO io) {
+        io.afficher("Que voulez vous faire ?\n\n" +
+                "1. Ajouter un employe.\n" +
+                "2. Supprimer un employe.\n" +
+                "3. Lister les employe.\n" +
+                "4. Retour.\n");
+
+        String actionChoisi;
+        actionChoisi = io.lireLigne();
+        int parts = Integer.parseInt(actionChoisi.trim());
+
+        switch (parts) {
+            case 1:
+                ajouterEmployer(employes, io);
+                break;
+            case 2:
+                supprimerEmployer(employes, io);
+                break;
+            case 3:
+                listerEmployer(employes, io);
+                break;
+            case 4:
+                return true;
+            default:
+                io.afficher("Choix invalide, entre 1, 2, 3 ou 4.");
+                return false;
+        }
+        return false;
+    }
 
     private static void listerEmployer(ArrayList<Emloye> employes, ConsoleIO io) {
         if (employes.isEmpty()) {
             io.afficher("Il n'y a aucun animal à lister.");
             return;
         }
-        for (int i = 0; i < employes.size(); i++) io.afficher((i + 1) + ". " + employes.get(i).getNom();
+        for (int i = 0; i < employes.size(); i++) {
+            io.afficher((i + 1) + ". " + employes.get(i).getAll());
+        }
+    }
+
+    private static void ajouterEmployer(ArrayList<Emloye> employes, ConsoleIO io) {
+        String[] donnees = new String[4];
+        String prenom;
+        String nom;
+        String role;
+        int salaire = 0;
+        Veterinaire veterinaire = null;
+        Soigneur soigneur = null;
+        boolean typeInconnu = false;
+        do {
+            do {
+                do {
+                    donnees = null;
+                    io.afficher("Nom, Prenom, role, Salaire\n\n" +
+                            "Role : Soigneur/Veterinaire\n" +
+                            "Exemple : Dupont, Alice, Veterinaire, 5000");
+
+                    donnees = io.lireLigne().trim().split("\\s*,\\s*");
+
+                    if (donnees.length != 4) {
+                        io.afficher("Il faut 4 valeurs séparées par des virgules.");
+                    }
+                } while (donnees.length != 4);
+
+                nom = donnees[0];
+                prenom = donnees[1];
+                role = donnees[2].toLowerCase();
+                salaire = Integer.parseInt(donnees[3]);
+
+                if (salaire < 0 ) {
+                    io.afficher("Le salaire doit etre positif");
+                }
+            } while (salaire < 0);
+
+            switch (role) {
+                case "veterinaire":
+                    veterinaire = new Veterinaire(nom, prenom, salaire);
+                    break;
+                case "soigneur":
+                    soigneur = new Soigneur(nom, prenom, salaire);
+                    break;
+                default:
+                    io.afficher("Role inconnu : " + role);
+                    typeInconnu = true;
+                    break;
+            }
+        } while (typeInconnu);
+        if (veterinaire != null) {
+            employes.add(veterinaire);
+        } else {
+            employes.add(soigneur);
+        }
+        String ligne = String.format("%s %s a été ajouter", nom, prenom);
+        io.afficher(ligne);
     }
 }
