@@ -3,39 +3,31 @@ import java.util.ArrayList; // Import the ArrayList class
 public class Main {
 
     public static void main(String[] args) {
-
         ArrayList<Animal> animals = new ArrayList<>();
+        ArrayList<Emloye> employes = new ArrayList<>();
+        Soigneur Employe1 = new Soigneur("Albert", "Dupont", 3500);
+        Soigneur Employe2 = new Soigneur("Laure", "Dinateur", 4000);
+        Soigneur Employe3 = new Soigneur("Jean", "naimar", 3500);
+        Veterinaire Employe4 = new Veterinaire("Albert", "Cavu", 5000);
+        Soigneur Employe5 = new Soigneur("Brigitte", "c++", 4500);
+        Veterinaire Employe6 = new Veterinaire("Chu", "Ki", 3500);
         ConsoleIO io = new ConsoleIO();
-        boolean estRepete = true;
 
+        employes.add(Employe1);
+        employes.add(Employe2);
+        employes.add(Employe3);
+        employes.add(Employe4);
+        employes.add(Employe5);
+        employes.add(Employe6);
+
+        listerEmployer(employes, io);
+
+        /*boolean estRepete = true;
         do {
-            io.afficher("Que voulez vous faire ?\n\n" +
-                    "1. Ajouter un animal.\n" +
-                    "2. Supprimer un animal.\n" +
-                    "3. Lister les animaux.\n" +
-                    "4. Quitter.\n");
-
-            String actionChoisi;
-            actionChoisi = io.lireLigne();
-            int parts = Integer.parseInt(actionChoisi.trim());
-
-            switch (parts) {
-                case 1:
-                    ajouterAnimal(animals, io);
-                    break;
-                case 2:
-                    supprimerAnimal(animals, io);
-                    break;
-                case 3: listerAnimaux(animals, io);
-                break;
-                case 4: estRepete = false;
-                io.afficher("Au revoir !");
-                break;
-                default: io.afficher("Choix invalide, entre 1, 2, 3 ou 4.");
+            if (gestionAnimal(animals, io)) {
+                estRepete = false;
             }
-
-
-        } while (estRepete);
+        } while (estRepete);*/
     }
 
     private static void ajouterAnimal(ArrayList<Animal> animals, ConsoleIO io) {
@@ -124,5 +116,73 @@ public class Main {
         for (int i = 0; i < animals.size(); i++) {
             io.afficher((i + 1) + ". " + animals.get(i));
         }
+    }
+
+   private static boolean gestionAnimal(ArrayList<Animal> animals, ConsoleIO io) {
+       io.afficher("Que voulez vous faire ?\n\n" +
+               "1. Ajouter un animal.\n" +
+               "2. Supprimer un animal.\n" +
+               "3. Lister les animaux.\n" +
+               "4. Quitter.\n");
+
+       String actionChoisi;
+       actionChoisi = io.lireLigne();
+       int parts = Integer.parseInt(actionChoisi.trim());
+
+       switch (parts) {
+           case 1:
+               ajouterAnimal(animals, io);
+               break;
+           case 2:
+               supprimerAnimal(animals, io);
+               break;
+           case 3:
+               listerAnimaux(animals, io);
+               break;
+           case 4:
+               io.afficher("Au revoir !");
+               return true;
+           default:
+               io.afficher("Choix invalide, entre 1, 2, 3 ou 4.");
+               return false;
+       }
+       return true;
+   }
+
+   private static boolean gesionEmployer(ArrayList<Animal> animals, ArrayList<Emloye> employes, ConsoleIO io) {
+       io.afficher("Quel employer utiliserer vous ?\n\n");
+       listerEmployer(employes, io);
+       String employeChoisi;
+       employeChoisi = io.lireLigne();
+       int parts = Integer.parseInt(employeChoisi.trim());
+       employes.get(parts);
+
+/*
+       switch (parts) {
+           case 1:
+               ajouterAnimal(animals, io);
+               break;
+           case 2:
+               supprimerAnimal(animals, io);
+               break;
+           case 3:
+               listerAnimaux(animals, io);
+               break;
+           case 4:
+               io.afficher("Au revoir !");
+               return true;
+           default:
+               io.afficher("Choix invalide, entre 1, 2, 3 ou 4.");
+               return false;
+       }*/
+       return true;
+   }
+
+    private static void listerEmployer(ArrayList<Emloye> employes, ConsoleIO io) {
+        if (employes.isEmpty()) {
+            io.afficher("Il n'y a aucun animal à lister.");
+            return;
+        }
+        for (int i = 0; i < employes.size(); i++) io.afficher((i + 1) + ". " + employes.get(i).getNom();
     }
 }
