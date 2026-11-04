@@ -13,6 +13,23 @@ public abstract class Emloye {
 
     public abstract String getRole();
 
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public double getSalaire() {
+        return salaire;
+    }
+
+    public String getAll() {
+        return getNom() + getPrenom() + ", " + getRole() + " [" + getSalaire() + "]";
+    }
+
+
     public abstract String effectuerTache(Animal animal);
 
 
