@@ -25,20 +25,12 @@ public abstract class Animal {
 
     public abstract String soinQuotidien();
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public void setSante(EtatSante sante) {
         this.sante = sante;
     }
 
     @Override
     public String toString() {
-        return nom + ", " + age + " ans, " + sante;
+        return nom + ", " + age + " ans, " + sante.toString();
     }
 }
