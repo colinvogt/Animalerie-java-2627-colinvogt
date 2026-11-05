@@ -26,7 +26,7 @@ public abstract class Emloye {
     }
 
     public String getAll() {
-        return getNom() + getPrenom() + ", " + getRole() + " [" + getSalaire() + "]";
+        return getNom() + " " + getPrenom() + ", " + getRole() + " [" + getSalaire() + "]";
     }
 
 
