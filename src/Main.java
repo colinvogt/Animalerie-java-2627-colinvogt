@@ -69,7 +69,7 @@ public class Main {
     }
 
     private static void ajouterAnimal(ArrayList<Animal> animals, ConsoleIO io) {
-        String[] donnees = new String[4];
+        String[] donnees;
         String type;
         String nom;
         int age = 0;
@@ -79,7 +79,6 @@ public class Main {
         do {
             do {
                 do {
-                    donnees = null;
                     io.afficher("Type, Nom, Age, Santé\n\n" +
                             "Type : chien ou chat\n" +
                             "Santé : 0 = Sain, 1 = Soin léger, 2 = Soin intensif\n" +
@@ -245,7 +244,7 @@ public class Main {
     }
 
     private static void ajouterEmployer(ArrayList<Emloye> employes, ConsoleIO io) {
-        String[] donnees = new String[4];
+        String[] donnees;
         String prenom;
         String nom;
         String role;
@@ -256,7 +255,6 @@ public class Main {
         do {
             do {
                 do {
-                    donnees = null;
                     io.afficher("Nom, Prenom, role, Salaire\n\n" +
                             "Role : Soigneur/Veterinaire\n" +
                             "Exemple : Dupont, Alice, Veterinaire, 5000");
