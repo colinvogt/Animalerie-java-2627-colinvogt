@@ -36,8 +36,8 @@ public class Main {
         do {
             io.afficher("1. S'occuper d'un animal\n" +
                     "2. Ajouter/lister/supprimer un animal\n" +
-                    "4. Ajouter/lister/supprimer un employer\n" +
-                    "3. Quitter");
+                    "3. Ajouter/lister/supprimer un employer\n" +
+                    "4. Quitter");
             actionChoisi = io.lireLigne();
             int parts = Integer.parseInt(actionChoisi.trim());
             switch (parts) {
@@ -52,7 +52,14 @@ public class Main {
                         }
                     } while (estRepete);
                     break;
-                case 3: ge
+                case 3:
+                    boolean repete = true;
+                    do {
+                        if (gestionEmployer(employes, io)) {
+                            repete = false;
+                        }
+                    } while (repete);
+                    break;
                 case 4:
                     io.afficher("Au revoir!");
                     continuer = false;
@@ -291,5 +298,27 @@ public class Main {
         }
         String ligne = String.format("%s %s a été ajouter", nom, prenom);
         io.afficher(ligne);
+    }
+
+    private static void supprimerEmployer(ArrayList<Emloye> employes, ConsoleIO io) {
+        if (employes.isEmpty()) {
+            io.afficher("Il n'y a aucun employer à supprimer.");
+            return;
+        }
+
+        listerEmployer(employes, io);
+        io.afficher("Numéro de l'employer à supprimer :");
+
+        int numero = 0;
+        do {
+            numero = Integer.parseInt(io.lireLigne().trim());
+            if (numero < 1 || numero > employes.size()) {
+
+                io.afficher("Numero Invalide");
+            }
+        } while ((numero < 1 || numero > employes.size()));
+
+        Emloye supprime = employes.remove(numero - 1);
+        io.afficher(supprime.getNom() + " a été supprimé.");
     }
 }
